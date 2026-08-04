@@ -99,3 +99,30 @@ function render() {
   });
 }
 
+//4. map()으로 새 배열 리턴하기->
+//조건문에 맞는 todos 요소만 바꾸고,
+//배열에 done 의 값을 반전하여 수정
+function toggleTodo(id) {
+  //할 일을 클릭했을 때 이 함수의 파라미터인 id 와
+  //할 일 목록의 id가 동일하면 done의 값을 반전
+  //새 배열을 todos 변수로 부터 만든다
+
+  todos = todos.map((todo) => {
+    if (todo.id === id) {
+      return { ...todo, done: !todo.done };
+      //얕은 복사
+    }
+    return todo;
+  });
+  render();
+}
+
+//5. filter로 새 배열 만들기
+//이번엔 deleteTodo() 만들기
+function deleteTodo(id) {
+  todos = todos.filter((todo) => {
+    todo.id !== id;
+  });
+  render();
+}
+
