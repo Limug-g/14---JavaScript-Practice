@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>콜백 함수 실습 - 할 일 필터링</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        font-family: -apple-system, sans-serif;
+        background-color: #fcfcfc;
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+      p.desc {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .input-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      #todoInput {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+      #todoInput:focus {
+        outline: none;
+        border-color: #3692ff;
+      }
+      #addBtn {
+        padding: 10px 20px;
+        background-color: #3692ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .filter-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .filter-btn {
+        padding: 8px 16px;
+        border: 1px solid #d1d5db;
+        border-radius: 20px;
+        background-color: white;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .filter-btn.active {
+        background-color: #374151;
+        color: white;
+        border-color: #374151;
+      }
+      #todoList {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      #todoList li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background-color: white;
+      }
+      #todoList li.done span {
+        text-decoration: line-through;
+        color: #9ca3af;
+      }
+      #todoList li span {
+        flex: 1;
+        font-size: 15px;
+      }
+      #todoList li .deleteBtn {
+        border: none;
+        background: none;
+        color: #ef4444;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      #emptyMessage {
+        text-align: center;
+        color: #9ca3af;
+        padding: 24px 0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 할 일 목록</h1>
+      <p class="desc">콜백 함수(filter, map, forEach)로 목록을 관리하는 예제입니다</p>
+
+      <div class="input-row">
+        <input id="todoInput" type="text" placeholder="할 일을 입력하세요" />
+        <button id="addBtn">추가</button>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">전체</button>
+        <button class="filter-btn" data-filter="active">진행중</button>
+        <button class="filter-btn" data-filter="done">완료</button>
+      </div>
+
+      <ul id="todoList"></ul>
+      <p id="emptyMessage" style="display: none">할 일이 없습니다</p>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
