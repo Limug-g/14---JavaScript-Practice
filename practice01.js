@@ -53,5 +53,21 @@ function getFilteredTodos() {
   // 그외에 '전체' 필터인 경우 보이는 할 일들
 }
 
+//3. todos 배열을 하나씩 순회하며 화면에 그리기-> forEach문 사용
+function render() {
+  //변수를 선언해서 필터 함수로 리턴되는 배열 요소를 담아주자
+  const filterTodo = getFilteredTodos();
 
+  //목록 비우기
+  todoList.innerHTML = "";
 
+  //필터링된 결과가 없으면 안내 문구 표시 (필터된 결과는 배열)
+  if (filterTodo.length === 0) {
+    emptyMessage.style.display = "block";
+    //emptyMessage 태그 안에 텍스트가 보이게
+  } else {
+    emptyMessage.style.display = "none";
+    //할 일이 있으면 안보이게
+  }
+
+}
