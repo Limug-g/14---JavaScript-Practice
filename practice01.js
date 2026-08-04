@@ -34,5 +34,24 @@ function addTodo() {
   render();
   //이거는 왜 넣어주는거지?
 }
+//2. filter()로 원하는 조건만 골라내기-> 콜백함수
+function getFilteredTodos() {
+  if (currentFileter === "active") {
+    return todos.filter((todo) => {
+      todo.done === false;
+    });
+  }
+  //'진행중' 필터를 클릭하면 보이는 할 일들(배열형태)
+
+  if (currentFileter === "done") {
+    return todos.filter((todo) => {
+      todo.done === true;
+    });
+    //'완료됨' 필터를 클릭하면 보이는 할 일들
+  }
+  return todos;
+  // 그외에 '전체' 필터인 경우 보이는 할 일들
+}
+
 
 
