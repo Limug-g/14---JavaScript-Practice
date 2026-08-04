@@ -70,4 +70,32 @@ function render() {
     //할 일이 있으면 안보이게
   }
 
+  //
+  filterTodo.filter((todo) => {
+    const li = document.createElement("li");
+    //할 일이 추가 될때 li태그를 만드는 작업-> 클래스도 붙여서
+    if (todo.done) {
+      li.classList.add("done");
+    }
+
+    //할 일이 추가 될때 만들어진 li 태그 안에 텍스트를 넣는 작업
+    const span = document.createElement("span");
+    span.textContent = todo.text;
+
+    span.addEventListener("click", () => {
+      toggleTodo(todo, id);
+    });
+
+    //할 일이 추가되면 삭제 버튼이 생성된 할 일 옆에 같이 만들어지는 작업
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.textContent = "삭제";
+    deleteBtn.addEventListener("click", () => {
+      deleteTodo(todo.id);
+    });
+
+    li.append(span, deleteBtn);
+    todoList.append(li);
+  });
 }
+
