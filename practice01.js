@@ -126,3 +126,32 @@ function deleteTodo(id) {
   render();
 }
 
+//이벤트 핸들러 등록
+addBtn.addEventListener("click", addTodo);
+
+todoInput.addEventListener("keydown", (event) => {
+  if (event.key == "Enter") {
+    addTodo();
+  }
+});
+
+//forEach 문으로 각 버튼들에 이벤트 등록
+filterBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    filterBtn.forEach((b) => {
+      //모든 버튼에서 active 클래서 제거
+      b.classList.remove("active");
+
+      //클릭한 버튼만 active 클래서 추가
+      btn.classList.add("active");
+
+      currentFileter = btn.dataset.filter;
+      //맨 위에서 currentfileter를 all로 정의했음
+      //그래서 정확히 어떻게 돌아가는지는 모르겠네
+      //
+      render();
+    });
+  });
+});
+
+render();
