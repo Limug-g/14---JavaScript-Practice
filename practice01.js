@@ -16,6 +16,8 @@ let idCounter = 1;
 function addTodo() {
   const text = todoInput.value.trim();
   //trim()를 붙이는 이유는?
+  // => 1. 스페이스바 공백을 걸러내기위해 2. 텍스트 양쪽 공백을 없애기 위해
+  //입력값을 받을 때는 .trim()을 써주는게 베스트인 듯
 
   if (text === "") {
     alert("오늘 할 일이 그렇게 없습니까...");
@@ -33,6 +35,7 @@ function addTodo() {
   todoInput.value = "";
   render();
   //이거는 왜 넣어주는거지?
+  // => 아래에서 render() 함수를 선언함, 함수 표현식이라 호이스팅 되서 상관없음
 }
 //2. filter()로 원하는 조건만 골라내기-> 콜백함수
 function getFilteredTodos() {
@@ -67,7 +70,7 @@ function render() {
   }
 
   //
-  filterTodo.filter((todo) => {
+  filterTodo.forEach((todo) => {
     const li = document.createElement("li");
     //할 일이 추가 될때 li태그를 만드는 작업-> 클래스도 붙여서
     if (todo.done) {
@@ -103,10 +106,16 @@ function toggleTodo(id) {
   //할 일 목록의 id가 동일하면 done의 값을 반전
   //새 배열을 todos 변수로 부터 만든다
 
+  //이게 약간 total = total + 1 이런 느낌임
+  //map으로 기존의 todos 배열을 조건에 맞게 바꾸고, 그걸 기존의 todos 배열에 재할당하는 거임
   todos = todos.map((todo) => {
     if (todo.id === id) {
       return { ...todo, done: !todo.done };
-      //얕은 복사
+      //얕은 복사( map() )를 해야되는 이유
+      //=> 원본을 살려둬야 브라우저 화면이 바뀌고 원래대로 돌아오는 것이 가능하다.
+      // 원본 데이터가 훼손되면 브라우저 화면이 바뀐상태로 멈추는 에러가 발생한다.
+      //{ ...todo, done: !todo.done } 이렇게 쓰면 done 키값이 반복되지만
+      //중복될 경우 마지막으로 쓴 키의 값이 적용된다. 즉, done: !todo.done으로 바뀐다.
     }
     return todo;
   });
@@ -142,8 +151,20 @@ filterBtn.forEach((btn) => {
 
     currentFileter = btn.dataset.filter;
     //맨 위에서 currentfileter를 all로 정의했음
-    //그래서 정확히 어떻게 돌아가는지는 모르겠네
-    //
+
+    //이중 forEach 문을 쓰지 않고 버튼에 클래스를 추가하고 없애는 코드 (더 효율적, 실무적)
+    // let activeButton = filterButtons[0]; // 처음엔 "전체" 버튼이 활성화 상태라고 가정
+
+    // filterButtons.forEach((btn) => {
+    //   btn.addEventListener("click", () => {
+    //     activeButton.classList.remove("active"); // 이전에 켜져있던 버튼 끄기
+    //     btn.classList.add("active"); // 새로 클릭한 버튼 켜기
+    //     activeButton = btn; // "지금 켜진 버튼"을 갱신해서 기억
+
+    //     currentFilter = btn.dataset.filter;
+    //     render();
+    //   });
+    // });
     render();
   });
 });
